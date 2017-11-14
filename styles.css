@@ -1,14 +1,13 @@
-#original-image,
 #output-canvas {
     display : block;
-    float : left;
+    float : right;
     margin : 10px;
 }
 
 ul#testlist {
     display : block;
     float : left;
-    width : 300px;
+    width : 250px;
     list-style : none;
     padding : 0;
     margin : 10px;
@@ -29,17 +28,3 @@ ul#testlist li:hover {
     background-color : rgb(200,240,255);
 }
 
-div#progress {
-    float : left;
-    width : 20px;
-    height : 512px;
-    margin-top : 10px;
-    box-sizing : border-box;
-    border : 1px solid black;
-}
-
-div#progress div {
-    width : 100%;
-    height : 0;
-    background-color : rgb(190,220,190);
-}

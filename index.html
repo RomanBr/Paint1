@@ -8,152 +8,28 @@
     <script src="pixastic.effects.js"></script>
     <script src="pixastic.worker.js"></script>
     <script>
-        window.onload = function() {
-             
+        var img,canvas,ctx,p;
+		var img_name = "3.bmp";
+		function img_load () {
+			img = new Image();
+			img.src = img_name;
+            canvas = document.getElementById("output-canvas"),
+            ctx = canvas.getContext("2d"),
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img, 0, 0);
+		}
+		
+		window.onload = function() {
+            img_load(); 
             function doTest(test) {
-                var img = document.getElementById("original-image"),
-                    canvas = document.getElementById("output-canvas"),
-                    ctx = canvas.getContext("2d"),
-                    progress = document.getElementById("progress-inner"),
-                    P;
-
-                canvas.style.display = "none";
-                canvas.width = img.width;
-                canvas.height = img.height;
-                canvas.title = test.effect;
-                ctx.drawImage(img, 0, 0);
-
+				canvas.title = test.effect;
                 P = new Pixastic(ctx);
-                P[test.effect](test.options).done(function() {
-                    canvas.style.display = "block";
-                }, function(p) {
-                    progress.style.height = (p * 100) + "%";
-                });
+                P[test.effect](test.options).done(function() {});
             }
             
             var tests = [
-                {
-                    effect : "posterize",
-                    options : {
-                        levels : 5
-                    }
-                }, {
-                    effect : "solarize"
-                }, {
-                    effect : "colorfilter",
-                    options : {
-                        r : 0,
-                        g : 194 / 255,
-                        b : 177 / 255,
-                        luminosity : 0
-                    }
-                }, {
-                    effect : "findedges"
-                }, {
-                    effect : "emboss",
-                    options : {
-                        amount : 0.5,
-                        angle : 135 / 180 * Math.PI
-                    }
-                }, {
-                    effect : "edgeenhance3x3"
-                }, {
-                    effect : "edgeenhance5x5"
-                }, {
-                    effect : "sharpen3x3",
-                    options : {
-                        strength : 0.5
-                    }
-                }, {
-                    effect : "sharpen5x5",
-                    options : {
-                        strength : 0.1
-                    }
-                }, {
-                    effect : "soften3x3"
-                }, {
-                    effect : "soften5x5"
-                }, {
-                    effect : "laplace3x3"
-                }, {
-                    effect : "laplace5x5"
-                }, {
-                    effect : "crossedges",
-                    options : {
-                        strength : 0.5
-                    }
-                }, {
-                    effect : "coloradjust",
-                    options : {
-                        r : 0,
-                        g : 0.3,
-                        b : 0
-                    }
-                }, {
-                    effect : "blur",
-                    options : {
-                        kernelSize : 5
-                    }
-                },{
-                    effect : "glow",
-                    options : {
-                        kernelSize : 5,
-                        amount : 1.0
-                    }
-                }, {
-                    effect : "hsl",
-                    options : {
-                        hue : -0.8,
-                        saturation : 0.5,
-                        lightness : -0.3
-                    }
-                },{
-                    effect : "fliph"
-                },{
-                    effect : "flipv"
-                },{
-                    effect : "desaturate"
-                },{
-                    effect : "brightness",
-                    options : {
-                        brightness : -1.00,
-                        contrast : -0.1
-                    }
-                },{
-                    effect : "sepia", 
-                },{
-                    effect : "invert",
-                },{
-                    effect : "noise",
-                    options : {
-                        amount : 0.5,
-                        strength : 0.5,
-                        mono : true
-                    }
-                },{
-                    effect : "removenoise"
-                },{
-                    effect : "lighten",
-                    options : {
-                        amount : 0.5
-                    }
-                },
-                {
-                    effect : 'mosaic',
-                    options : {
-                        blockSize : 8
-                    }
-                },
-                {
-                    effect : 'equalize',
-                    options : {
-					}
-                },
-				{
-                    effect : 'morph',
-                    options : {
-                    }
-                }
+				{ effect : 'morph', options : Math.Max }
             ];
             
             var ul = document.getElementById("testlist"),
@@ -181,10 +57,6 @@
 <body>
 
     <ul id="testlist"></ul>
-    <img src="sample-images/monalisa.jpg" id="original-image">
-    <div id="progress"><div id="progress-inner"></div></div>
     <canvas id="output-canvas"></canvas>
-
-
 </body>
 </html>

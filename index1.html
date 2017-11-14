@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Pixastic</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="pixastic.js"></script>
+    <script src="pixastic.effects.js"></script>
+    <script src="pixastic.worker.js"></script>
+    <script>
+        window.onload = function() {
+             
+            function doTest(test) {
+                var img = document.getElementById("original-image"),
+                    canvas = document.getElementById("output-canvas"),
+                    ctx = canvas.getContext("2d"),
+                    P;
+
+                canvas.width = img.width;
+                canvas.height = img.height;
+                canvas.title = test.effect;
+                ctx.drawImage(img, 0, 0);
+
+                P = new Pixastic(ctx);
+                P[test.effect](test.options).done(function() {});
+            }
+            
+            var tests = [
+				{ effect : 'morph', options : {} }
+            ];
+            
+            var ul = document.getElementById("testlist"),
+                li;
+            
+            for (var i=0;i<tests.length;i++) {
+                li = document.createElement("li");
+                li.innerHTML = tests[i].effect;
+                li.setAttribute("data-test", i);
+                ul.appendChild(li);
+            }
+            
+            ul.addEventListener("click", function(e) {
+                var target = e.target || e.srcElement,
+                    test;
+                if (target.tagName == "LI") {
+                    test = tests[target.getAttribute("data-test")];
+                    doTest(test);
+                }
+            }, false);
+            
+        }
+    </script>
+</head>
+<body>
+
+    <ul id="testlist"></ul>
+    <img src="3.bmp" id="original-image">
+    <canvas id="output-canvas"></canvas>
+</body>
+</html>
