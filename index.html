@@ -8,7 +8,9 @@
     <script src="pixastic.effects.js"></script>
     <script src="pixastic.worker.js"></script>
     <script>
-        var img,canvas,ctx,p;
+		var F1 = ['max', 'or'];
+
+		var img,canvas,ctx,p;
 		var img_name = "3.bmp";
 		function img_load () {
 			img = new Image();
@@ -18,45 +20,29 @@
             canvas.width = img.width;
             canvas.height = img.height;
             ctx.drawImage(img, 0, 0);
+			P = new Pixastic(ctx);
+		}
+
+		function doTest(test) {
+			canvas.title = test.effect;
+			P[test.effect](test.options).done(function() {});
 		}
 		
 		window.onload = function() {
             img_load(); 
-            function doTest(test) {
-				canvas.title = test.effect;
-                P = new Pixastic(ctx);
-                P[test.effect](test.options).done(function() {});
-            }
-            
-            var tests = [
-				{ effect : 'morph', options : Math.Max }
-            ];
-            
-            var ul = document.getElementById("testlist"),
-                li;
-            
-            for (var i=0;i<tests.length;i++) {
-                li = document.createElement("li");
-                li.innerHTML = tests[i].effect;
-                li.setAttribute("data-test", i);
-                ul.appendChild(li);
-            }
-            
-            ul.addEventListener("click", function(e) {
-                var target = e.target || e.srcElement,
-                    test;
-                if (target.tagName == "LI") {
-                    test = tests[target.getAttribute("data-test")];
-                    doTest(test);
-                }
-            }, false);
-            
+			
         }
+		
     </script>
 </head>
 <body>
-
-    <ul id="testlist"></ul>
-    <canvas id="output-canvas"></canvas>
+	<div>
+		<ul id="testlist" style = "float: left;">
+			<li onclick = "doTest({ effect : 'Inv', options : {} });">Neighbours</li>
+			<li onclick = "doTest({ effect : 'Neighbours', options : 'Max' });">Neighbours</li>
+			<li onclick = "doTest({ effect : 'Neighbours1', options : 'max' });">Neighbours1</li>
+		</ul>
+	<div>    
+	<canvas id="output-canvas"></canvas>
 </body>
 </html>

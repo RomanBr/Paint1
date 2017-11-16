@@ -1,4 +1,5 @@
-﻿importScripts("pixastic.js");
+﻿importScripts("fun.js");
+importScripts("pixastic.js");
 importScripts("pixastic.effects.js");
 
 var worker = new Pixastic.Worker();
